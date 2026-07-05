@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class TaskManager {
     public void addTask(Tasks[] myTask, String task, boolean status ){
@@ -14,8 +13,12 @@ public class TaskManager {
     }
     public void deleteTask(Tasks[] myTask, int id){
         for(int i = 0; i < myTask.length; i++){
-            if(myTask[i].getID() == id){
-                myTask[i] = null;
+            if(myTask[i] != null && myTask[i].getTask() != null){
+                if(myTask[i].getID() == id){
+                    myTask[i] = null;
+                    break;
+            }   }else{
+                System.out.println("Нет задач!");
                 break;
             }
         }
