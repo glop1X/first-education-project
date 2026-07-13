@@ -1,8 +1,8 @@
 public class Task {
     private static int idCounter = 1;
-    private int id;
-    private String task;
-    private boolean status = false;
+    final int id;
+    final String task;
+    private boolean status;
 
     public int getId() {
         return id;
@@ -14,16 +14,6 @@ public class Task {
 
     public boolean getStatus(){
         return status;
-    }
-
-    /*public void setId(int id){
-        this.id = id;
-    }*/
-
-    public void setTask(String task){
-        if(task.isBlank()){
-            throw new IllegalArgumentException("Задача не может быть пустой!");
-        } else this.task = task;
     }
 
     public void setStatus(boolean status){

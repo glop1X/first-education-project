@@ -24,7 +24,7 @@ void main() {
         if(n == 1){
             System.out.println("Добавьте задачу:\n" +
                     "Для выхода напишите 0");
-            for(int i = 0;; i++) {
+            while(true) {
                 String task = sc.nextLine();
                 if(!task.equals("0")){
                     try{
@@ -88,7 +88,7 @@ void main() {
             } else {
                 boolean hasUnfinished = false;
                 for(Task currentTask : tasks){
-                    if(currentTask != null && currentTask.getStatus() == false){
+                    if(currentTask != null && !currentTask.getStatus()){
                         System.out.println(currentTask.getId() + "." + currentTask.getTask());
                         hasUnfinished = true;
                     }
