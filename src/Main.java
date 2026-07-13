@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 void main() {
     TaskManager taskManager = new TaskManager();
-    ArrayList<Task> tasks = new ArrayList<>();
+    List<Task> tasks = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     int n;
     final String menu = """
@@ -28,7 +28,7 @@ void main() {
                 String task = sc.nextLine();
                 if(!task.equals("0")){
                     try{
-                        taskManager.addTask(tasks, task, false);
+                        taskManager.addTask(tasks, task);
                     }
                     catch(IllegalArgumentException e){
                         System.out.println(e.getMessage());
@@ -38,14 +38,16 @@ void main() {
         }
 
         if(n == 2){
-            for(Task currentTask : tasks) {
-                if(currentTask != null && currentTask.getTask() != null){
-                    System.out.println(currentTask.getId() + "." + currentTask.getTask());
-                } else {
-                    System.out.println("Нет задач!");
-                    break;
+            if (tasks.isEmpty()) {
+                System.out.println("Нет задач!");
+            } else{
+                for (Task currentTask : tasks) {
+                    if (currentTask != null && currentTask.getTask() != null) {
+                        System.out.println(currentTask.getId() + "." + currentTask.getTask());
+                    }
                 }
             }
+
         }
 
         if(n == 3) {
@@ -57,13 +59,11 @@ void main() {
 
                 boolean found = false;
                 for (Task currentTask : tasks) {
-                    if (currentTask != null && currentTask.getTask() != null) {
-                        if (currentTask.getId() == id) {
+                    if(currentTask.getId() == id){
                             currentTask.setStatus(true);
                             found = true;
                             System.out.println("Задача успешно выполнена!");
                             break;
-                        }
                     }
                 }
                 if (!found) {
@@ -88,7 +88,7 @@ void main() {
             } else {
                 boolean hasUnfinished = false;
                 for(Task currentTask : tasks){
-                    if(currentTask != null && !currentTask.getStatus()){
+                    if(!currentTask.getStatus()){
                         System.out.println(currentTask.getId() + "." + currentTask.getTask());
                         hasUnfinished = true;
                     }
