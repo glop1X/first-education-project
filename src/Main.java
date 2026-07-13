@@ -1,7 +1,8 @@
 import java.util.Scanner;
+
 void main() {
     TaskManager taskManager = new TaskManager();
-    Task[] tasks = new Task[100];
+    ArrayList<Task> tasks = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     int n;
     final String menu = """
@@ -35,42 +36,65 @@ void main() {
                 }else break;
             }
         }
+
         if(n == 2){
-            for(int i = 0;i < tasks.length; i++) {
-                if(tasks[i] != null && tasks[i].getTask() != null){
-                    System.out.println(tasks[i].getId()+1 + "." + tasks[i].getTask());
+            for(Task currentTask : tasks) {
+                if(currentTask != null && currentTask.getTask() != null){
+                    System.out.println(currentTask.getId() + "." + currentTask.getTask());
                 } else {
                     System.out.println("Нет задач!");
                     break;
                 }
             }
         }
-        if(n == 3){
-            System.out.println("Выберите задачу, которую хотите отметить выполненной:");
-            int id = sc.nextInt() - 1;
-            for(int i = 0; i < tasks.length; i++) {
-                if(tasks[i] != null && tasks[i].getTask() != null){
-                    if(tasks[i].getId() == id){
-                    tasks[i].setStatus(true);
-                    break;
+
+        if(n == 3) {
+            if (tasks.isEmpty()) {
+                System.out.println("Список пуст, нет задач для выполнения.");
+            } else {
+                System.out.println("Выберите задачу, которую хотите отметить выполненной:");
+                int id = sc.nextInt();
+
+                boolean found = false;
+                for (Task currentTask : tasks) {
+                    if (currentTask != null && currentTask.getTask() != null) {
+                        if (currentTask.getId() == id) {
+                            currentTask.setStatus(true);
+                            found = true;
+                            System.out.println("Задача успешно выполнена!");
+                            break;
+                        }
+                    }
                 }
-                } else{
-                    System.out.println("Нет задач!");
-                    break;
+                if (!found) {
+                    System.out.println("Задача с таким ID не найдена.");
                 }
             }
         }
+
         if(n == 4){
-            System.out.println("Выберите задачу, которую хотите удалить:");
-            int id = sc.nextInt();
-            taskManager.deleteTask(tasks, id - 1 );
-        }if(n == 5){
-            for(int i = 0; i < tasks.length; i++){
-                if(tasks[i] != null && tasks[i].getStatus() == false){
-                    System.out.println(tasks[i].getId()+1 + "." + tasks[i].getTask());
-                } else {
+            if (tasks.isEmpty()) {
+                System.out.println("Список пуст, нет задач для выполнения.");
+            } else {
+                System.out.println("Выберите задачу, которую хотите удалить:");
+                int id = sc.nextInt();
+                taskManager.deleteTask(tasks, id);
+            }
+        }
+
+        if(n == 5){
+            if (tasks.isEmpty()) {
+                System.out.println("Список пуст, нет задач для выполнения.");
+            } else {
+                boolean hasUnfinished = false;
+                for(Task currentTask : tasks){
+                    if(currentTask != null && currentTask.getStatus() == false){
+                        System.out.println(currentTask.getId() + "." + currentTask.getTask());
+                        hasUnfinished = true;
+                    }
+                }
+                if (!hasUnfinished) {
                     System.out.println("Нет невыполненных задач!");
-                    break;
                 }
             }
         }

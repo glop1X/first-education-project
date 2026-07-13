@@ -1,5 +1,5 @@
 public class Task {
-
+    private static int idCounter = 1;
     private int id;
     private String task;
     private boolean status = false;
@@ -16,9 +16,9 @@ public class Task {
         return status;
     }
 
-    public void setId(int id){
+    /*public void setId(int id){
         this.id = id;
-    }
+    }*/
 
     public void setTask(String task){
         if(task.isBlank()){
@@ -30,4 +30,9 @@ public class Task {
         this.status = status;
     }
 
+    public Task(String taskText, boolean taskStatus){
+        this.task = taskText;
+        this.id = idCounter++;
+        this.status = taskStatus;
+    }
 }
