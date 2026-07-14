@@ -46,3 +46,7 @@ During this project I practiced:
 ## Purpose
 
 This project was created for educational purposes as part of my journey to become a Java Backend Developer.
+
+## Status
+
+**Completed** — no further development is planned. This project was created for learning purposes.
